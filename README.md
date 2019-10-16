@@ -1,3 +1,3 @@
 # Tugas 1 APAP
 ## Authors
-* **Taliza Ayu Dwiputritaudik** - *1706024715* - *B*
+* **Taliza Ayu Dwiputritaufik** - *1706024715* - *B*
