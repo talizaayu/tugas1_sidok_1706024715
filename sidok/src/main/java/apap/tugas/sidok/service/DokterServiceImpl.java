@@ -33,7 +33,11 @@ public class DokterServiceImpl implements DokterService {
     public Optional<DokterModel> getDokterByIdDokter(Long idDokter) {
         return dokterDb.findByIdDokter(idDokter);
     }
-    
+
+    public DokterModel findDokterByNikDokter(String nikDokter) {
+        return dokterDb.findByNikDokter(nikDokter);
+    }
+
     // @Override
 	// public DokterModel getDokterDetailByNip(String nipDokter) {
 	// 	return dokterDb.findByNipDokter(nipDokter);

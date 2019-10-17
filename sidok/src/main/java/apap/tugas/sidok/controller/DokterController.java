@@ -60,6 +60,13 @@ public class DokterController {
         return "add-dokter";
     }
 
+    @RequestMapping(value="/dokter/{nikDokter}", method=RequestMethod.GET)
+    public String detailDokter(@PathVariable String nikDokter, Model model) {
+        DokterModel nik = dokterService.findDokterByNikDokter(nikDokter);
+        model.addAttribute("dokter", nik);
+        return "detail-dokter";
+    }
+
     // @RequestMapping(value = "/dokter/add", method = RequestMethod.POST, params={"submit"})
     // private String tambahDokterSubmit(@ModelAttribute DokterModel dokter, Model model) {
     //     String nipDokter = dokterService.generateNip(dokter.getTanggalLahir(), dokter.getJenisKelamin());
