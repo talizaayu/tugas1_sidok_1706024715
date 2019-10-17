@@ -1,37 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymelaf.org">
-
+<html xmlns:th="http://thymeleaf.org">
 <head>
-    <title>View All Dokter</title>
-
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
 <body>
-    <nav th:replace="fragments/fragment :: navbar (pageTitle='View All Dokter')"></nav>
-    <table>
-        <thead>
-            <tr>
-                <th>Nama</th>
-                <th>NIP</th>
-                <th>NIK</th>
-                <th>Jenis Kelamin</th>
-                <th>Tanggal Lahir</th>
-                <th>Tempat Lahir</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="dokter,iterationStatus : *{dokterList}">
-                <td th:text="${dokter.namaDokter}"></td>
-                <td th:text="${dokter.nipDokter}"></td>
-                <td th:text="${dokter.nikDokter}"></td>
-                <td th:text="${dokter.jenisKelamin}"></td>
-                <td th:text="${dokter.tanggalLahir}"></td>
-                <td th:text="${dokter.tempatLahir}"></td>
-            </tr>
-        </tbody>
-    </table>
-</body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <br>
+    <h2 align="center">Sistem Informasi Dokter</h2>
+    <br>
 
+    <div class="card text-center">
+        <div class="card-header bg-dark text-white" align="left">
+            Daftar Dokter
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">NIP</th>
+                    <th scope="col">NIK</th>
+                    <th scope="col">Jenis Kelamin</th>
+                    <th scope="col">Spesialisasi</th>
+                    <th scope="col"></th>
+
+                    </tr>
+                </thead>
+                <tbody th:each="dokter, iterationStatus : ${dokterList}">
+                    <tr>
+                        <th scope="row" th:text="${iterationStatus.count}"></th>
+                        <td><a th:text="${dokter.namaDokter}" th:href="@{/dokter/} + ${dokter.nikDokter}" ></a></td>
+                        <td th:text="${dokter.nipDokter}"></td>
+                        <td th:text="${dokter.nikDokter}"></td>
+                        <td th:text="${dokter.jenisKelamin} == 1 ? 'Laki-Laki' : (${dokter.jenisKelamin} == 2 ? 'Perempuan')"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div align="right">
+                <td>
+                    <form th:action="@{/dokter/tambah/}" th:method="GET">       
+                        <button class="btn btn-dark text-white" value="submit">Tambah Dokter</button>
+                    </form>
+                </td>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
