@@ -2,7 +2,7 @@ package apap.tugas.sidok.model;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +29,6 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 @Entity
 @Table(name="dokter")
 public class DokterModel implements Serializable {
-
 
 	public Long getIdDokter() {
 		return this.idDokter;

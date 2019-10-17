@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Dokter</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar (pageTitle='Add Dokter')"></nav>
+    <h3> Tambah Dokter </h3>
+    <form th:action="@{/dokter/tambah}" th:object="${dokter}" method="POST">
+        <!-- <input type="hidden" name="nipDokter" th:value="${dokter.nipDokter}"> -->
+        
+        Nama: <br>
+        <input type="text" name="namaDokter" />
+        <br>
+        NIK: <br>
+        <input type="text" name="nikDokter" />
+        <br>
+        Tanggal Lahir: <br>
+        <input type="date" name="tanggalLahir" />
+        <br>
+        Tempat Lahir: <br>
+        <input type="text" name="tempatLahir" />
+        <br>
+        <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
+                <div class="col-sm-7">
+                    <select class="form-control" id="sel1" name="jenisKelamin">
+                        <option value="1">laki-laki</option>
+                        <option value="1">perempuan</option>
+                       
+                    </select>
+                </div>
+            </div>
+
+        <br>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Spesialisasi</label>
+            <div class="col-sm-7">
+                <select class="form-control" id="sel1" th:field="*{listSpesialisasi}">
+                    <option value="">Pilih Spesialisasi</option>
+                    <option th:each="spesialisasi : ${listSpesialisasi}" th:text="${spesialisasi.namaSpesialisasi}"
+                        th:value="${spesialisasi.idSpesialisasi}"></option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit"> Submit </button>
+    </form>
+</body>
+
+</html>
