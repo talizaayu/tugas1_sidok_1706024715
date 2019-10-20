@@ -29,14 +29,20 @@ public class DokterServiceImpl implements DokterService {
         return dokterDb.findAllByOrderByNamaDokterAsc();
     }
 
-    @Override
-    public Optional<DokterModel> getDokterByIdDokter(Long idDokter) {
-        return dokterDb.findByIdDokter(idDokter);
-    }
+    // @Override
+    // public Optional<DokterModel> getDokterByIdDokter(Long idDokter) {
+    //     return dokterDb.findByIdDokter(idDokter);
+    // }
 
+    @Override
     public DokterModel findDokterByNikDokter(String nikDokter) {
         return dokterDb.findByNikDokter(nikDokter);
     }
+
+    @Override
+	public DokterModel findDokterByIdDokter(Long id) {
+		return dokterDb.findByIdDokter(id);
+	}
 
     // @Override
 	// public DokterModel getDokterDetailByNip(String nipDokter) {
@@ -52,4 +58,22 @@ public class DokterServiceImpl implements DokterService {
 	// 	String formatted = df.format(tanggalLahir);
 	// 	System.out.println("date :" + formatted);
     // }
+
+    @Override
+    public DokterModel updateDokter(DokterModel dokterModel) {
+        DokterModel targetDokter = dokterDb.findById(dokterModel.getIdDokter()).get();
+
+        try{
+            targetDokter.setNamaDokter(dokterModel.getNamaDokter());
+            targetDokter.setNikDokter(dokterModel.getNikDokter());
+            targetDokter.setTanggalLahir(dokterModel.getTanggalLahir());
+            targetDokter.setTempatLahir(dokterModel.getTempatLahir());
+            targetDokter.setJenisKelamin(dokterModel.getJenisKelamin());
+            dokterDb.save(targetDokter);
+            return targetDokter;
+        }
+        catch (NullPointerException nullException) {
+            return null;
+        }
+    }
 }

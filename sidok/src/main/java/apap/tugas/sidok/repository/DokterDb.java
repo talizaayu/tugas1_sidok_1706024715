@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface DokterDb extends JpaRepository<DokterModel, Long> {
     List<DokterModel> findAllByOrderByNamaDokterAsc();
-    Optional<DokterModel> findByIdDokter(Long idDokter);
+    DokterModel findByIdDokter(Long idDokter);
     DokterModel findByNikDokter(String nikDokter);
     // DokterModel findByNipDokter(String nipDokter);
 }

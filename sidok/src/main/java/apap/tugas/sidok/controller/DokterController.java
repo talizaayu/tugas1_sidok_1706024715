@@ -27,7 +27,6 @@ public class DokterController {
     @Autowired
     private SpesialisasiService spesialisasiService;
     
-
     // @RequestMapping("/")
     // public String home() {
     //     return "home";
@@ -78,6 +77,20 @@ public class DokterController {
        
     //     return "add-dokter";
     // } 
+
+    @RequestMapping(value="dokter/update/{idDokter}", method = RequestMethod.GET)
+    public String updateDokterFormPage(@PathVariable Long idDokter, Model model) {
+        DokterModel existingDokter = dokterService.findDokterByIdDokter(idDokter);
+        model.addAttribute("dokter", existingDokter);
+        return "form-update-dokter";
+    }
+
+    @RequestMapping(value="dokter/update/{idDokter}", method = RequestMethod.POST)
+    public String updateDokterFormSubmit(@PathVariable Long idDokter, @ModelAttribute DokterModel dokter, Model model) {
+        DokterModel newDokterData = dokterService.updateDokter(dokter);
+        model.addAttribute("dokter", newDokterData);
+        return "update-dokter";
+    }
 }
 
 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Data Dokter</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar (pageTitle='Update Dokter')"></nav>
+    <h2>Update Data Dokter</h2>
+    <form th:action="@{/dokter/update/} + ${dokter.idDokter}" th:object="${dokter}" method="POST">
+		<input type="hidden" class="form-control" name="id" th:field="*{idDokter}">
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Nama</label>
+   			<div class="col-sm-7">
+      			<input type="text" class="form-control" name="nama" th:field="*{namaDokter}">
+    		</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">NIK</label>
+   			<div class="col-sm-7">
+      			<input type="text" class="form-control" name="nikDokter" th:field="*{nikDokter}" readonly="true">
+    		</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Tanggal Lahir</label>
+   			<div class="col-sm-7">
+      			<input type="date" class="form-control" name="tanggalLahir" th:field="*{tanggalLahir}">
+    		</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Tempat Lahir</label>
+   			<div class="col-sm-7">
+      			<input type="text" class="form-control" name="tempatLahir" th:field="*{tempatLahir}">
+    		</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Jenis Kelamin</label>
+   			<div class="col-sm-7">
+      			<select class="form-control" th:field="*{jenisKelamin}">
+      				<option value="1">laki-Laki</option>
+      				<option value="2">perempuan</option>
+      			</select>
+    		</div>
+		</div>
+		<br>
+		<div class="row">
+			<br>
+			<div class="col-md-8"></div>
+			<button class="btn btn-primary" type="submit"> Submit </button>
+		</div>
+	</form>
+</body>
+
+</html>

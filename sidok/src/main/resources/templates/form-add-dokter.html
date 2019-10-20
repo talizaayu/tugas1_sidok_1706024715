@@ -13,7 +13,7 @@
     <h3> Tambah Dokter </h3>
     <form th:action="@{/dokter/tambah}" th:object="${dokter}" method="POST">
         <!-- <input type="hidden" name="nipDokter" th:value="${dokter.nipDokter}"> -->
-        
+
         Nama: <br>
         <input type="text" name="namaDokter" />
         <br>
@@ -27,15 +27,15 @@
         <input type="text" name="tempatLahir" />
         <br>
         <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                <div class="col-sm-7">
-                    <select class="form-control" id="sel1" name="jenisKelamin">
-                        <option value="1">laki-laki</option>
-                        <option value="1">perempuan</option>
-                       
-                    </select>
-                </div>
+            <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
+            <div class="col-sm-7">
+                <select class="form-control" id="sel1" name="jenisKelamin">
+                    <option value="1">laki-laki</option>
+                    <option value="1">perempuan</option>
+
+                </select>
             </div>
+        </div>
 
         <br>
         <div class="form-group row">
