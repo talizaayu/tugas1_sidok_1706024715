@@ -15,4 +15,5 @@ public interface DokterService {
     // String generateNip(Date tanggalLahir, String jenisKelamin);
     DokterModel findDokterByIdDokter(Long idDokter);
     DokterModel updateDokter(DokterModel dokterModel);
+    void deleteDokter(Long idDokter);
 }

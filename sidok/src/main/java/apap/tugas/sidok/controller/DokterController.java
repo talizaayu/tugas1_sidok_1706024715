@@ -91,6 +91,15 @@ public class DokterController {
         model.addAttribute("dokter", newDokterData);
         return "update-dokter";
     }
+
+    @RequestMapping(value="/dokter/delete/{idDokter}", method = RequestMethod.POST)
+	private String delete(@PathVariable Long idDokter, Model model) {
+		DokterModel dokter = dokterService.findDokterByIdDokter(idDokter);
+		String namaDokter = dokter.getNamaDokter();
+		dokterService.deleteDokter(idDokter);
+		model.addAttribute("namaDokter", namaDokter);
+		return "delete-dokter";
+	}
 }
 
 

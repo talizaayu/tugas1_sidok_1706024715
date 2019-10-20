@@ -76,4 +76,11 @@ public class DokterServiceImpl implements DokterService {
             return null;
         }
     }
+
+    @Override
+    public void deleteDokter(Long idDokter) {
+        DokterModel deleteDok = dokterDb.findByIdDokter(idDokter);
+		dokterDb.delete(deleteDok);
+    }
+
 }
