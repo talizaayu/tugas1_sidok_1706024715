@@ -29,17 +29,27 @@
                 <tbody th:each="poli, iterationStatus : ${poliList}">
                     <tr>
                         <th scope="row" th:text="${iterationStatus.count}"></th>
-                        <td th:text="${poli.namaPoli}"></td>
+                        <td><a th:text="${poli.namaPoli}" th:href="@{/poli/view/} + ${poli.idPoli}" ></a></td>
                         <td th:text="${poli.lokasiPoli}"></td>
+                        <td>
+                            <!-- <form th:action="@{/dokter/delete/} + ${dokter.idDokter}" th:method="POST">							 -->
+                                <button class="btn btn-dark text-white"value="submit">ubah</button>
+                            <!-- </form> -->
+                        </td>
+                        <td>
+                            <!-- <form th:action="@{/dokter/delete/} + ${dokter.idDokter}" th:method="POST">							 -->
+                                <button class="btn btn-danger text-white"value="submit">hapus</button>
+                            <!-- </form> -->
+                        </td>
                     </tr>
                 </tbody>
                 
             </table>
             <div align="right">
                 <td>
-                    <!-- <form th:action="@{/poli/tambah/}" th:method="GET">        -->
+                    <form th:action="@{/poli/tambah/}" th:method="GET">       
                         <button class="btn btn-dark text-white" value="submit">Tambah Poli</button>
-                    <!-- </form> -->
+                    </form>
                 </td>
             </div>
         </div>

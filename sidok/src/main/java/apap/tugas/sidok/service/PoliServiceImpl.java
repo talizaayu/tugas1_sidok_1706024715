@@ -27,6 +27,21 @@ public class PoliServiceImpl implements PoliService {
     @Override
 	public PoliModel findPoliByIdPoli(Long idPoli) {
 		return poliDb.findByIdPoli(idPoli);
-	}
+    }
+    
+    @Override
+    public PoliModel addPoli(PoliModel poli) {
+        return poliDb.save(poli);
+    }
+
+    @Override
+	public PoliModel getPoliByIdPoli(Long idPoli) {
+		return poliDb.findByIdPoli(idPoli);
+    }
+    
+    @Override
+    public PoliModel getTopByOrderByIdPoliDesc() {
+        return poliDb.findTopByOrderByIdPoliDesc();
+    }
 
 }

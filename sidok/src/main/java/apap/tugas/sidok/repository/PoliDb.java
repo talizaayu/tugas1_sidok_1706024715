@@ -10,4 +10,5 @@ import java.util.List;
 public interface PoliDb extends JpaRepository<PoliModel, Long> {
     List<PoliModel> findAll();
     PoliModel findByIdPoli(Long idPoli);
+    PoliModel findTopByOrderByIdPoliDesc();
 }

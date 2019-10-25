@@ -30,6 +30,29 @@ public class PoliController {
         model.addAttribute("poliList", listPoli);
         return "daftar-poli"; 
     }
+
+    @RequestMapping(value = "/poli/tambah", method = RequestMethod.GET)
+    public String addPoliFormPage(Model model) {
+        PoliModel newPoli = new PoliModel();
+        PoliModel oldPoli = poliService.getTopByOrderByIdPoliDesc();
+        model.addAttribute("poli", newPoli);
+        model.addAttribute("idPoli", oldPoli.getIdPoli() + 1);
+        return "form-add-poli";
+    }
+
+    @RequestMapping(value = "/poli/view/{idPoli}", method = RequestMethod.POST)
+    public String addPoliSubmit(@PathVariable Long idPoli, @ModelAttribute PoliModel poli, Model model) {
+        PoliModel newPoli = poliService.addPoli(poli);
+        model.addAttribute("poli", newPoli);
+        return "detail-add-poli";
+    }
+
+    @RequestMapping(value="/poli/view/{idPoli}", method=RequestMethod.GET)
+    public String detailPoli(@PathVariable Long idPoli, Model model) {
+        PoliModel poli = poliService.getPoliByIdPoli(idPoli);
+        model.addAttribute("poli", poli);
+        return "detail-poli";
+    }
 }
 
 
