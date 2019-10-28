@@ -37,27 +37,45 @@ public class JadwalJagaModel implements Serializable {
 
 	public String getHari() {
 		return this.hari;
-    }
+  }
     
-    public void setHari(String hari) {
+  public void setHari(String hari) {
 		this.hari = hari;
-    }
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idJadwalJaga;
+  }
 
-    @NotNull
-    @Size(max=255)
-    @Column(name="hari", nullable = false)
-    private String hari;
+  public DokterModel getDokter() {
+		return dokter;
+	}
+
+	public void setDokter(DokterModel dokter) {
+		this.dokter = dokter;
+  }
+  
+  public PoliModel getPoli() {
+    return this.poli;
+  }
+
+  public void setPoli(PoliModel poli) {
+    this.poli = poli;
+  }
+    
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "idJadwalJaga")
+  private Long idJadwalJaga;
+
+  @NotNull
+  @Size(max=255)
+  @Column(name="hari", nullable = false)
+  private String hari;
 
 	@ManyToOne
     @JoinColumn(name = "idDokter")
     private DokterModel dokter;
 
-    @ManyToOne
-    @JoinColumn(name = "idPoli")
-    private PoliModel poli;
+  @ManyToOne
+  @JoinColumn(name = "idPoli")
+  private PoliModel poli;
+ 
 }
 

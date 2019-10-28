@@ -1,6 +1,11 @@
 package apap.tugas.sidok.controller;
 
 import java.util.List;
+import java.time.LocalDate;
+import java.util.Random;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,11 +39,8 @@ public class DokterController {
 
     @RequestMapping("/")
     public String viewall(Model model) {
-
         List<DokterModel> listDokter = dokterService.getDokterList();
-
         model.addAttribute("dokterList", listDokter);
-
         return "beranda"; 
     }
 
@@ -53,9 +55,39 @@ public class DokterController {
 
     @RequestMapping(value = "/dokter/tambah", method = RequestMethod.POST)
     public String addDokterSubmit(@ModelAttribute DokterModel dokter, Model model) {
-        dokter.setNipDokter("0");
+        String nipDokter = "";
+        String[] nowYear = LocalDate.now().toString().split("-");
+        int selectedYear = Integer.parseInt(nowYear[0]) + 5;
+        System.out.println(selectedYear);
+        nipDokter += selectedYear;
+        
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+        String tanggalLahir = dateFormat.format(dokter.getTanggalLahir());
+        tanggalLahir = tanggalLahir.substring(0, tanggalLahir.length() - 2);
+        tanggalLahir = tanggalLahir.replace("-", "");
+        nipDokter += tanggalLahir;
+
+        int gender = 0;
+        if (dokter.getJenisKelamin() == 1) {
+            gender = 1;
+        }
+        if (dokter.getJenisKelamin() == 2) {
+            gender = 2;
+        }
+        
+        nipDokter += gender;
+        
+        Random r = new Random();
+        char a = (char) (r.nextInt(26) + 'a');
+        char b = (char) (r.nextInt(26) + 'a');
+        nipDokter += a;
+        nipDokter += b;
+      
+        dokter.setNipDokter(nipDokter);
         dokterService.addDokter(dokter);
-        model.addAttribute("namaDokter", dokter.getNamaDokter());
+        // dokter.setNipDokter("0");
+        dokterService.addDokter(dokter);
+        model.addAttribute("dokter", dokter);
         return "add-dokter";
     }
 

@@ -83,4 +83,9 @@ public class DokterServiceImpl implements DokterService {
 		dokterDb.delete(deleteDok);
     }
 
+    @Override
+    public DokterModel findDokterByNipDokter(String nipDokter) {
+        return dokterDb.findByNipDokter(nipDokter);
+    }
+
 }

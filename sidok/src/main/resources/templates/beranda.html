@@ -38,9 +38,9 @@
                         <td th:text="${dokter.jenisKelamin} == 1 ? 'Laki-Laki' : (${dokter.jenisKelamin} == 2 ? 'Perempuan')"></td>
                         <td th:text="${dokter.listSpesialisasi[0].namaSpesialisasi}"></td>
                         <td>
-                            <!-- <form th:action="@{/dokter/update/} + ${dokter.idDokter}" th:method="GET">							 -->
+                            <form th:action="@{/jadwal/tambah/} + ${dokter.nipDokter}" th:method="GET">							
                                 <button class="btn btn-primary text-white"value="submit">tambah jadwal</button>
-                            <!-- </form> -->
+                            </form>
                         </td>
                         <td>
                             <form th:action="@{/dokter/update/} + ${dokter.idDokter}" th:method="GET">							

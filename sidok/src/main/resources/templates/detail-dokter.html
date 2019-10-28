@@ -23,7 +23,7 @@
                     <p th:text="'Tempat Lahir : ' + ${dokter.tempatLahir}"></p>
                     <p th:text="'Tanggal Lahir : ' + ${dokter.tanggalLahir}"></p>
                     <p
-                        th:text="${dokter.jenisKelamin} == 1 ? 'Jenis Kelamin : Laki-Laki' : (${dokter.jenis_kelamin} == 2 ? 'Jenis Kelamin : Perempuan')">
+                        th:text="${dokter.jenisKelamin} == 1 ? 'Jenis Kelamin : Laki-Laki' : (${dokter.jenisKelamin} == 2 ? 'Jenis Kelamin : Perempuan')">
                     </p>
                     <p th:text="Spesialisasi"></p>
                     <ul th:each="spesialisasi : ${dokter.listSpesialisasi}">

@@ -8,6 +8,6 @@
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar (pageTitle='Add Dokter')"></nav>
-    <h2 th:text="'Dokter dengan nama ' + ${namaDokter} + ' dengan NIP ' + ${nipDokter} + ' berhasil ditambahkan'"></h2>
+    <h2 th:text="'Dokter dengan nama ' + ${dokter.namaDokter} + ' dengan NIP ' + ${dokter.nipDokter} + ' berhasil ditambahkan'"></h2>
 </body>
 </html>
