@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import javax.servlet.http.HttpServletRequest;
 
 import apap.tugas.sidok.model.*;
 import apap.tugas.sidok.service.*;
@@ -31,6 +34,12 @@ public class DokterController {
 
     @Autowired
     private SpesialisasiService spesialisasiService;
+
+    @Autowired
+    private PoliService poliService;
+
+    @Autowired
+    private JadwalJagaService jadwalJagaService;
     
     // @RequestMapping("/")
     // public String home() {
@@ -47,8 +56,11 @@ public class DokterController {
     @RequestMapping(value = "/dokter/tambah", method = RequestMethod.GET)
     public String addDokterFormPage(Model model) {
         DokterModel newDokter = new DokterModel();
-        model.addAttribute("dokter", newDokter);
         List<SpesialisasiModel> spesialisasiModel = spesialisasiService.getSpesialisasiList();
+        ArrayList<SpesialisasiModel> listSpesialisasi = new ArrayList<SpesialisasiModel>();
+        listSpesialisasi.add(new SpesialisasiModel());
+        newDokter.setListSpesialisasi(listSpesialisasi);
+        model.addAttribute("dokter", newDokter);
         model.addAttribute("listSpesialisasi", spesialisasiModel);
         return "form-add-dokter";
     }
@@ -67,28 +79,39 @@ public class DokterController {
         tanggalLahir = tanggalLahir.replace("-", "");
         nipDokter += tanggalLahir;
 
-        int gender = 0;
+        int jenis_kelamin = 0;
         if (dokter.getJenisKelamin() == 1) {
-            gender = 1;
+            jenis_kelamin = 1;
         }
         if (dokter.getJenisKelamin() == 2) {
-            gender = 2;
+            jenis_kelamin = 2;
         }
         
-        nipDokter += gender;
+        nipDokter += jenis_kelamin;
         
         Random r = new Random();
-        char a = (char) (r.nextInt(26) + 'a');
-        char b = (char) (r.nextInt(26) + 'a');
+        char a = (char) (r.nextInt(26) + 'A');
+        char b = (char) (r.nextInt(26) + 'A');
         nipDokter += a;
         nipDokter += b;
       
         dokter.setNipDokter(nipDokter);
         dokterService.addDokter(dokter);
         // dokter.setNipDokter("0");
-        dokterService.addDokter(dokter);
         model.addAttribute("dokter", dokter);
         return "add-dokter";
+    }
+
+    @RequestMapping(value="/dokter/tambah", method = RequestMethod.POST, params={"addRow"}) 
+    public String addRow(@ModelAttribute DokterModel dokter, BindingResult bindingResult, final HttpServletRequest req, Model model) {
+        if (dokter.getListSpesialisasi() == null) {
+            dokter.setListSpesialisasi(new ArrayList<SpesialisasiModel>());
+        }
+        dokter.getListSpesialisasi().add(new SpesialisasiModel());
+        model.addAttribute("dokter", dokter);
+        List<SpesialisasiModel> spesialisasiModel = spesialisasiService.getSpesialisasiList();
+        model.addAttribute("listSpesialisasi", spesialisasiModel);
+        return "form-add-dokter";
     }
 
     @RequestMapping(value="/dokter/{nikDokter}", method=RequestMethod.GET)
@@ -119,9 +142,37 @@ public class DokterController {
 
     @RequestMapping(value="dokter/update/{idDokter}", method = RequestMethod.POST)
     public String updateDokterFormSubmit(@PathVariable Long idDokter, @ModelAttribute DokterModel dokter, Model model) {
+        String nipDokter = "";
+        String[] nowYear = LocalDate.now().toString().split("-");
+        int selectedYear = Integer.parseInt(nowYear[0]) + 5;
+        System.out.println(selectedYear);
+        nipDokter += selectedYear;
+        
+        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+        String tanggalLahir = dateFormat.format(dokter.getTanggalLahir());
+        tanggalLahir = tanggalLahir.substring(0, tanggalLahir.length() - 2);
+        tanggalLahir = tanggalLahir.replace("-", "");
+        nipDokter += tanggalLahir;
+
+        int jenis_kelamin = 0;
+        if (dokter.getJenisKelamin() == 1) {
+            jenis_kelamin = 1;
+        }
+        if (dokter.getJenisKelamin() == 2) {
+            jenis_kelamin = 2;
+        }
+        nipDokter += jenis_kelamin;
+        
+        Random r = new Random();
+        char a = (char) (r.nextInt(26) + 'A');
+        char b = (char) (r.nextInt(26) + 'A');
+        nipDokter += a;
+        nipDokter += b;
+
+        dokter.setNipDokter(nipDokter);
         DokterModel newDokterData = dokterService.updateDokter(dokter);
         model.addAttribute("dokter", newDokterData);
-        return "update-dokter";
+        return "detail-dokter";
     }
 
     @RequestMapping(value="/dokter/delete/{idDokter}", method = RequestMethod.POST)
@@ -131,7 +182,19 @@ public class DokterController {
 		dokterService.deleteDokter(idDokter);
 		model.addAttribute("namaDokter", namaDokter);
 		return "delete-dokter";
-	}
+    }
+    
+    // @RequestMapping(value="/cari", method = RequestMethod.GET)
+    // public String cariDokterByPoliAndSpesialisasi(Model model) {
+    //     List<PoliModel> listPoli = poliService.getPoliList();
+    //     model.addAttribute("poliList", listPoli);
+    //     List<SpesialisasiModel> spesialisasiModel = spesialisasiService.getSpesialisasiList();
+    //     model.addAttribute("listSpesialisasi", spesialisasiModel);
+    //     return "cari-dokter";
+    // }
+
+    // @RequestMapping(value="/cari", method=RequestMethod.GET, params={"idSpesialisasi", "idPoli"})
+    // public String cariDokterP
 }
 
 

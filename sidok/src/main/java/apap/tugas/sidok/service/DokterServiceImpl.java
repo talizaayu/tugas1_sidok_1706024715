@@ -66,6 +66,7 @@ public class DokterServiceImpl implements DokterService {
         try{
             targetDokter.setNamaDokter(dokterModel.getNamaDokter());
             targetDokter.setNikDokter(dokterModel.getNikDokter());
+            targetDokter.setNipDokter(dokterModel.getNipDokter());
             targetDokter.setTanggalLahir(dokterModel.getTanggalLahir());
             targetDokter.setTempatLahir(dokterModel.getTempatLahir());
             targetDokter.setJenisKelamin(dokterModel.getJenisKelamin());
