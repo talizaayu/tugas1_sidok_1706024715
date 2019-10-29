@@ -222,38 +222,38 @@ public class DokterController {
 
     }
 
-    // @RequestMapping(value="/cari-dokter-poli", method=RequestMethod.GET, params={"idPoli"})
-    // public String cariDokterBanyakPoli(@RequestParam(value="idPoli") Long idPoli, Model model) {
-    //     List<PoliModel> poliModel = poliService.getPoliList();
-    //     model.addAttribute("poliList", poliModel);
-    //     PoliModel poliModels = poliService.getPoliByIdPoli(idPoli);
-    //     List<JadwalJagaModel> jadwalJagaModel = jadwalJagaService.getJadwalJagaByPoli(poliModels);
-    //     Map<Long, Integer> map = new HashMap<Long, Integer>();
+    @RequestMapping(value="/cari-dokter-poli", method=RequestMethod.GET, params={"idPoli"})
+    public String cariDokterBanyakPoli(@RequestParam(value="idPoli") Long idPoli, Model model) {
+        List<PoliModel> poliModel = poliService.getPoliList();
+        model.addAttribute("poliList", poliModel);
+        PoliModel poliModels = poliService.getPoliByIdPoli(idPoli);
+        List<JadwalJagaModel> jadwalJagaModel = jadwalJagaService.getJadwalJagaByPoli(poliModels);
+        Map<Long, Integer> map = new HashMap<Long, Integer>();
 
-    //     for(int i = 0; i<jadwalJagaModel.size(); i++) {
-    //         Long id = jadwalJagaModel.get(i).getDokter().getIdDokter();
-    //         if(map.containsKey(id)) {
-    //             map.put(id, map.get(id) + 1);
-    //         }
-    //         map.put(id, 1);
-    //     }
-    //     Long max = null;
-    //     for(Map.Entry<Long, Integer> entry : map.entrySet()) {
-    //         if(max == null || entry.getValue() > map.get(max)) {
-    //             max = entry.getKey();
-    //         }
-    //     }
-    //     DokterModel dokter = dokterService.getDokterByIdDokter(max);
-    //     model.addAttribute("dokter", dokter);
-    //     return "cari-dokter-banyak-poli";
-    // }
+        for(int i = 0; i<jadwalJagaModel.size(); i++) {
+            Long id = jadwalJagaModel.get(i).getDokter().getIdDokter();
+            if(map.containsKey(id)) {
+                map.put(id, map.get(id) + 1);
+            }
+            map.put(id, 1);
+        }
+        Long max = null;
+        for(Map.Entry<Long, Integer> entry : map.entrySet()) {
+            if(max == null || entry.getValue() > map.get(max)) {
+                max = entry.getKey();
+            }
+        }
+        DokterModel dokter = dokterService.getDokterByIdDokter(max);
+        model.addAttribute("dokter", dokter);
+        return "cari-dokter-banyak-poli";
+    }
 
-    // @RequestMapping(value="/cari-dokter-poli", method = RequestMethod.GET) 
-    // public String cariDokterBanyakPoli(Model model) {
-    //     List<PoliModel> poliModels = poliService.getPoliList();
-    //     model.addAttribute("poliList", poliModels);
-    //     return "cari-dokter-banyak-poli";
-    // }
+    @RequestMapping(value="/cari-dokter-poli", method = RequestMethod.GET) 
+    public String cariDokterBanyakPoli(Model model) {
+        List<PoliModel> poliModels = poliService.getPoliList();
+        model.addAttribute("poliList", poliModels);
+        return "cari-dokter-banyak-poli";
+    }
 }
 
 
