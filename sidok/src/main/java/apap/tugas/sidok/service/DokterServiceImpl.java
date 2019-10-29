@@ -29,10 +29,10 @@ public class DokterServiceImpl implements DokterService {
         return dokterDb.findAllByOrderByNamaDokterAsc();
     }
 
-    // @Override
-    // public Optional<DokterModel> getDokterByIdDokter(Long idDokter) {
-    //     return dokterDb.findByIdDokter(idDokter);
-    // }
+    @Override
+    public DokterModel getDokterByIdDokter(Long idDokter) {
+        return dokterDb.findByIdDokter(idDokter);
+    }
 
     @Override
     public DokterModel findDokterByNikDokter(String nikDokter) {

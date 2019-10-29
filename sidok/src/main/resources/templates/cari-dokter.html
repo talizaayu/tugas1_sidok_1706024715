@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Cari Dokter</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container-fluid">
+        <div align="center"><br>
+        <div class="card" align="left">
+            <h2>Cari Dokter Berdasarkan Spesialisasi dan Poli Tertentu</h2><br>
+            <form th:action="@{/cari}" method="GET">
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label">Spesialisasi</label>
+                    <div class="col-sm-3">
+                        <select class="form-control container1" id="sel1" name="idSpesialisasi">
+                                <option value="">-- Pilih Spesialisasi --</option>
+                                <option th:each="spesialisasi : ${listSpesialisasi}" th:text="${spesialisasi.namaSpesialisasi}" th:value="${spesialisasi.idSpesialisasi}"></option>
+                                <br>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label">Poli</label>
+                    <div class="col-sm-3">
+                        <select class="form-control container1" id="sel1" name="idPoli">
+                                <option value="">--Pilih Poli--</option>
+                                <option th:each="poli : ${poliList}" th:text="${poli.namaPoli}" th:value="${poli.idPoli}">
+                                </option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit"> Submit </button> <br>
+            </form>
+            <br>
+	  		<div class="card-header bg-dark">
+	  		<h3 class="text-white">Daftar Dokter</h3>
+	  		</div>
+	  		<div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">NIP</th>
+                            <th scope="col">NIK</th>
+                            <th scope="col">Jenis Kelamin</th>
+                            <th scope="col">Spesialisasi</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="dokter, iterationStatus : ${targetDokterModels}">
+                        <tr>
+                            <th scope="row" th:text="${iterationStatus.count}"></th>
+                            <td><a th:text="${dokter.namaDokter}" th:href="@{/dokter/} + ${dokter.nikDokter}" ></a></td>
+                            <td th:text="${dokter.nipDokter}"></td>
+                            <td th:text="${dokter.nikDokter}"></td>
+                            <td th:text="${dokter.jenisKelamin} == 1 ? 'Laki-Laki' : (${dokter.jenisKelamin} == 2 ? 'Perempuan')"></td>
+                            <td th:text="${dokter.listSpesialisasi[0].namaSpesialisasi}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+	  		</div>
+		</div>
+    </div>
+    </div>
+</body>
+</html>

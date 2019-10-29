@@ -1,9 +1,11 @@
 package apap.tugas.sidok.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.Date;
+import java.util.HashMap;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -184,17 +186,74 @@ public class DokterController {
 		return "delete-dokter";
     }
     
-    // @RequestMapping(value="/cari", method = RequestMethod.GET)
-    // public String cariDokterByPoliAndSpesialisasi(Model model) {
-    //     List<PoliModel> listPoli = poliService.getPoliList();
-    //     model.addAttribute("poliList", listPoli);
-    //     List<SpesialisasiModel> spesialisasiModel = spesialisasiService.getSpesialisasiList();
-    //     model.addAttribute("listSpesialisasi", spesialisasiModel);
-    //     return "cari-dokter";
+    @RequestMapping(value="/cari", method = RequestMethod.GET)
+    public String cariDokterByPoliAndSpesialisasi(Model model) {
+        List<PoliModel> listPoli = poliService.getPoliList();
+        model.addAttribute("poliList", listPoli);
+        List<SpesialisasiModel> spesialisasiModel = spesialisasiService.getSpesialisasiList();
+        model.addAttribute("listSpesialisasi", spesialisasiModel);
+        return "cari-dokter";
+    }
+
+    @RequestMapping(value="/cari", method=RequestMethod.GET, params={"idSpesialisasi", "idPoli"})
+    public String cariDokterPoliAndSpesialisasi(@RequestParam(value="idSpesialisasi") Long idSpesialisasi, @RequestParam(value="idPoli") Long idPoli, Model model) {
+        List<PoliModel> poliModel = poliService.getPoliList();
+        model.addAttribute("poliList", poliModel);
+        
+        List<SpesialisasiModel> spesialisasiModel = spesialisasiService.getSpesialisasiList();
+        model.addAttribute("listSpesialisasi", spesialisasiModel);
+
+        PoliModel poliModels = poliService.getPoliByIdPoli(idPoli);
+        SpesialisasiModel spesialisasiModels = spesialisasiService.getSpesialisasiByIdSpesialisasi(idSpesialisasi).get();
+
+        List<JadwalJagaModel> jadwalJagaByPoli = jadwalJagaService.getJadwalJagaByPoli(poliModels);
+        List<DokterModel> targetDokterModels = new ArrayList<DokterModel>();
+
+        for (JadwalJagaModel jadwalJaga : jadwalJagaByPoli) {
+            int spesialisasiLn = jadwalJaga.getDokter().getListSpesialisasi().size();
+            for(int i = 0; i < spesialisasiLn; i++) {
+                if(spesialisasiModels == jadwalJaga.getDokter().getListSpesialisasi().get(i)){
+                    targetDokterModels.add(jadwalJaga.getDokter());
+                }
+            }
+        }
+        model.addAttribute("targetDokterModels", targetDokterModels);
+        return "cari-dokter";
+
+    }
+
+    // @RequestMapping(value="/cari-dokter-poli", method=RequestMethod.GET, params={"idPoli"})
+    // public String cariDokterBanyakPoli(@RequestParam(value="idPoli") Long idPoli, Model model) {
+    //     List<PoliModel> poliModel = poliService.getPoliList();
+    //     model.addAttribute("poliList", poliModel);
+    //     PoliModel poliModels = poliService.getPoliByIdPoli(idPoli);
+    //     List<JadwalJagaModel> jadwalJagaModel = jadwalJagaService.getJadwalJagaByPoli(poliModels);
+    //     Map<Long, Integer> map = new HashMap<Long, Integer>();
+
+    //     for(int i = 0; i<jadwalJagaModel.size(); i++) {
+    //         Long id = jadwalJagaModel.get(i).getDokter().getIdDokter();
+    //         if(map.containsKey(id)) {
+    //             map.put(id, map.get(id) + 1);
+    //         }
+    //         map.put(id, 1);
+    //     }
+    //     Long max = null;
+    //     for(Map.Entry<Long, Integer> entry : map.entrySet()) {
+    //         if(max == null || entry.getValue() > map.get(max)) {
+    //             max = entry.getKey();
+    //         }
+    //     }
+    //     DokterModel dokter = dokterService.getDokterByIdDokter(max);
+    //     model.addAttribute("dokter", dokter);
+    //     return "cari-dokter-banyak-poli";
     // }
 
-    // @RequestMapping(value="/cari", method=RequestMethod.GET, params={"idSpesialisasi", "idPoli"})
-    // public String cariDokterP
+    // @RequestMapping(value="/cari-dokter-poli", method = RequestMethod.GET) 
+    // public String cariDokterBanyakPoli(Model model) {
+    //     List<PoliModel> poliModels = poliService.getPoliList();
+    //     model.addAttribute("poliList", poliModels);
+    //     return "cari-dokter-banyak-poli";
+    // }
 }
 
 
