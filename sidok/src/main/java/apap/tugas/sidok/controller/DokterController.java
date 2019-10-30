@@ -42,11 +42,6 @@ public class DokterController {
 
     @Autowired
     private JadwalJagaService jadwalJagaService;
-    
-    // @RequestMapping("/")
-    // public String home() {
-    //     return "home";
-    // }
 
     @RequestMapping("/")
     public String viewall(Model model) {
@@ -185,6 +180,11 @@ public class DokterController {
 		model.addAttribute("namaDokter", namaDokter);
 		return "delete-dokter";
     }
+
+    @RequestMapping("/find")
+    public String find() {
+        return "cari";
+    }
     
     @RequestMapping(value="/cari", method = RequestMethod.GET)
     public String cariDokterByPoliAndSpesialisasi(Model model) {
@@ -254,6 +254,13 @@ public class DokterController {
         model.addAttribute("poliList", poliModels);
         return "cari-dokter-banyak-poli";
     }
+
+    @RequestMapping(value="/bonus")
+    public String bonus(Model model) {
+		List<SpesialisasiModel> listSpesialisasi = spesialisasiService.getSpesialisasiList();
+		model.addAttribute("listSpesialisasi", listSpesialisasi);
+		return "bonus";
+	}
 }
 
 

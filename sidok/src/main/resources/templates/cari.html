@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <br><br>
+    <div align="center"><br>
+    <a href="/cari" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Cari Dokter Berdasarkan Spesialisasi dan Poli</a>
+    <a href="/cari-dokter-poli" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Cari Dokter Paling Banyak Bertugas di Poli</a>
+    <br><br>
+    <a href="/">Kembali ke Beranda</a>
+    </div>
+</body>

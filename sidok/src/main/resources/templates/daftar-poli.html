@@ -23,7 +23,7 @@
                     <th scope="col">Nama</th>
                     <th scope="col">Lokasi</th>
                     <th scope="col"></th>
-
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody th:each="poli, iterationStatus : ${poliList}">
@@ -33,12 +33,12 @@
                         <td th:text="${poli.lokasiPoli}"></td>
                         <td>
                             <!-- <form th:action="@{/dokter/delete/} + ${dokter.idDokter}" th:method="POST">							 -->
-                                <button class="btn btn-dark text-white"value="submit">ubah</button>
+                                <button class="btn btn-dark text-white"value="submit">Ubah</button>
                             <!-- </form> -->
                         </td>
                         <td>
                             <!-- <form th:action="@{/dokter/delete/} + ${dokter.idDokter}" th:method="POST">							 -->
-                                <button class="btn btn-danger text-white"value="submit">hapus</button>
+                                <button class="btn btn-danger text-white"value="submit">Hapus</button>
                             <!-- </form> -->
                         </td>
                     </tr>

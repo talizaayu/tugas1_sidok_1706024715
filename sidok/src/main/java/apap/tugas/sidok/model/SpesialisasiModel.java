@@ -35,19 +35,27 @@ public class SpesialisasiModel implements Serializable {
 
 	public String getNamaSpesialisasi() {
 		return this.namaSpesialisasi;
-    }
+  }
     
-    public void setNamaSpesialisasi(String namaSpesialisasi) {
+  public void setNamaSpesialisasi(String namaSpesialisasi) {
 		this.namaSpesialisasi = namaSpesialisasi;
-    }
+  }
 
-    public String getGelar() {
+  public String getGelar() {
 		return this.gelar;
-    }
+  }
     
-    public void setGelar(String gelar) {
+  public void setGelar(String gelar) {
 		this.gelar = gelar;
-    }
+  }
+
+  public List<DokterModel> getListDokter() {
+    return listDokter;
+  }
+
+  public void setListDokter(List<DokterModel> listDokter) {
+    this.listDokter = listDokter;
+  }
     
     
     @Id
