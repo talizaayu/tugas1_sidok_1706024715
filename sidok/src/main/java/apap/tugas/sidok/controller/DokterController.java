@@ -70,11 +70,15 @@ public class DokterController {
         System.out.println(selectedYear);
         nipDokter += selectedYear;
         
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String tanggalLahir = dateFormat.format(dokter.getTanggalLahir());
-        tanggalLahir = tanggalLahir.substring(0, tanggalLahir.length() - 2);
+        String tanggalLahir2 = dateFormat.format(dokter.getTanggalLahir());
+        tanggalLahir = tanggalLahir.substring(0, tanggalLahir.length() - 4);
+        tanggalLahir2 = tanggalLahir2.substring(tanggalLahir2.length() - 2, tanggalLahir2.length());
         tanggalLahir = tanggalLahir.replace("-", "");
         nipDokter += tanggalLahir;
+        nipDokter += tanggalLahir2;
+
 
         int jenis_kelamin = 0;
         if (dokter.getJenisKelamin() == 1) {
@@ -139,37 +143,53 @@ public class DokterController {
 
     @RequestMapping(value="dokter/update/{idDokter}", method = RequestMethod.POST)
     public String updateDokterFormSubmit(@PathVariable Long idDokter, @ModelAttribute DokterModel dokter, Model model) {
-        String nipDokter = "";
-        String[] nowYear = LocalDate.now().toString().split("-");
-        int selectedYear = Integer.parseInt(nowYear[0]) + 5;
-        System.out.println(selectedYear);
-        nipDokter += selectedYear;
-        
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-        String tanggalLahir = dateFormat.format(dokter.getTanggalLahir());
-        tanggalLahir = tanggalLahir.substring(0, tanggalLahir.length() - 2);
-        tanggalLahir = tanggalLahir.replace("-", "");
-        nipDokter += tanggalLahir;
+        // DokterModel oldDokterData = dokterService.updateDokter(dokter);
 
-        int jenis_kelamin = 0;
-        if (dokter.getJenisKelamin() == 1) {
-            jenis_kelamin = 1;
-        }
-        if (dokter.getJenisKelamin() == 2) {
-            jenis_kelamin = 2;
-        }
-        nipDokter += jenis_kelamin;
-        
-        Random r = new Random();
-        char a = (char) (r.nextInt(26) + 'A');
-        char b = (char) (r.nextInt(26) + 'A');
-        nipDokter += a;
-        nipDokter += b;
+        // if((dokter.getNamaDokter().equals(oldDokterData.getNamaDokter())) 
+        // && (dokter.getJenisKelamin() == oldDokterData.getJenisKelamin()
+        // && (dokter.getTanggalLahir().equals(oldDokterData.getTanggalLahir()))
+        // && (dokter.getTempatLahir().equals(oldDokterData.getTempatLahir())))) {
+        //     return "tidak-update-dokter";
+        // }
 
-        dokter.setNipDokter(nipDokter);
-        DokterModel newDokterData = dokterService.updateDokter(dokter);
-        model.addAttribute("dokter", newDokterData);
-        return "detail-dokter";
+        // else {
+            String nipDokter = "";
+            String[] nowYear = LocalDate.now().toString().split("-");
+            int selectedYear = Integer.parseInt(nowYear[0]) + 5;
+            System.out.println(selectedYear);
+            nipDokter += selectedYear;
+            
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String tanggalLahir = dateFormat.format(dokter.getTanggalLahir());
+            String tanggalLahir2 = dateFormat.format(dokter.getTanggalLahir());
+            tanggalLahir = tanggalLahir.substring(0, tanggalLahir.length() - 4);
+            tanggalLahir2 = tanggalLahir2.substring(tanggalLahir2.length() - 2, tanggalLahir2.length());
+            tanggalLahir = tanggalLahir.replace("-", "");
+            nipDokter += tanggalLahir;
+            nipDokter += tanggalLahir2;
+
+    
+            int jenis_kelamin = 0;
+            if (dokter.getJenisKelamin() == 1) {
+                jenis_kelamin = 1;
+            }
+            if (dokter.getJenisKelamin() == 2) {
+                jenis_kelamin = 2;
+            }
+            nipDokter += jenis_kelamin;
+            
+            Random r = new Random();
+            char a = (char) (r.nextInt(26) + 'A');
+            char b = (char) (r.nextInt(26) + 'A');
+            nipDokter += a;
+            nipDokter += b;
+    
+            dokter.setNipDokter(nipDokter);
+            DokterModel newDokterData = dokterService.updateDokter(dokter);
+            model.addAttribute("dokter", newDokterData);
+            return "detail-dokter";
+        // }
+        
     }
 
     @RequestMapping(value="/dokter/delete/{idDokter}", method = RequestMethod.POST)
