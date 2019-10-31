@@ -58,7 +58,15 @@
                             <td th:text="${dokter.nipDokter}"></td>
                             <td th:text="${dokter.nikDokter}"></td>
                             <td th:text="${dokter.jenisKelamin} == 1 ? 'Laki-Laki' : (${dokter.jenisKelamin} == 2 ? 'Perempuan')"></td>
-                            <td th:text="${dokter.listSpesialisasi[0].namaSpesialisasi}"></td>
+                            <td>
+                                    <span th:if="${#lists.size(dokter.listSpesialisasi)} == 0">-</span>
+                                        <span th:unless="${#lists.size(dokter.listSpesialisasi)} == 0">
+                                            <ul th:each="spesialisasi : ${dokter.listSpesialisasi}">
+                                                <li th:text="${spesialisasi.namaSpesialisasi}"></li>
+                                            </ul> 
+                                        </span>
+                                    </td>
+                                <td>
                         </tr>
                     </tbody>
                 </table>

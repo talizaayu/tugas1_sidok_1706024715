@@ -29,7 +29,16 @@
                     <tr>
                         <th scope="row" th:text="${iterationStatus.count}"></th>
                         <td th:text="${jadwalJagaByPoli.dokter.namaDokter}"></td>
-                        <td th:text="${jadwalJagaByPoli.dokter.listSpesialisasi[0].namaSpesialisasi}"></td>
+                        <!-- <td th:text="${jadwalJagaByPoli.dokter.listSpesialisasi[0].namaSpesialisasi}"></td> -->
+                        <td>
+                                <span th:if="${#lists.size(jadwalJagaByPoli.dokter.listSpesialisasi)} == 0">-</span>
+                                    <span th:unless="${#lists.size(jadwalJagaByPoli.dokter.listSpesialisasi)} == 0">
+                                        <ul th:each="spesialisasi : ${jadwalJagaByPoli.dokter.listSpesialisasi}">
+                                            <li th:text="${spesialisasi.namaSpesialisasi}"></li>
+                                        </ul> 
+                                    </span>
+                                </td>
+                            <td>
                     </tr>
                 </tbody>
             </table>
