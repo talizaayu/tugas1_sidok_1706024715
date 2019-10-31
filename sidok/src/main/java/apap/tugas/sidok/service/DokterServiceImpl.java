@@ -89,4 +89,10 @@ public class DokterServiceImpl implements DokterService {
         return dokterDb.findByNipDokter(nipDokter);
     }
 
+    @Override
+    public DokterModel getDokterByNikDokter(String nikDokter) {
+        return dokterDb.findByNikDokter(nikDokter);
+    }
+
+
 }

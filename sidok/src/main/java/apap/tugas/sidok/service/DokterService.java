@@ -17,4 +17,5 @@ public interface DokterService {
     DokterModel updateDokter(DokterModel dokterModel);
     void deleteDokter(Long idDokter);
     DokterModel findDokterByNipDokter(String nipDokter);
+    DokterModel getDokterByNikDokter(String nikDokter);
 }

@@ -64,6 +64,12 @@ public class DokterController {
 
     @RequestMapping(value = "/dokter/tambah", method = RequestMethod.POST)
     public String addDokterSubmit(@ModelAttribute DokterModel dokter, Model model) {
+
+        DokterModel checkDokter = dokterService.getDokterByNikDokter(dokter.getNikDokter());
+        if(checkDokter != null) {
+            return "dokter-exist";
+        }
+        
         String nipDokter = "";
         String[] nowYear = LocalDate.now().toString().split("-");
         int selectedYear = Integer.parseInt(nowYear[0]) + 5;
@@ -146,9 +152,9 @@ public class DokterController {
         // DokterModel oldDokterData = dokterService.updateDokter(dokter);
 
         // if((dokter.getNamaDokter().equals(oldDokterData.getNamaDokter())) 
-        // && (dokter.getJenisKelamin() == oldDokterData.getJenisKelamin()
+        // && (dokter.getJenisKelamin() == oldDokterData.getJenisKelamin())
         // && (dokter.getTanggalLahir().equals(oldDokterData.getTanggalLahir()))
-        // && (dokter.getTempatLahir().equals(oldDokterData.getTempatLahir())))) {
+        // && (dokter.getTempatLahir().equals(oldDokterData.getTempatLahir()))) {
         //     return "tidak-update-dokter";
         // }
 
