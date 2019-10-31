@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>No Update</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar (pageTitle='No Update')"></nav>
+    <h2 th:text="'Dokter tidak berubah'"></h2>
+    <a href="/">Kembali ke Beranda</a>
+</body>
+</html>

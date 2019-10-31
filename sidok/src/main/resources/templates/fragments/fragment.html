@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+
+    <head th:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    </head>
+
+    <head th:fragment="title">
+        <title th:text="${pageTitle}"></title>
+    </head>
+
+    <head th:fragment="js">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/esm/popper.min.js"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+    </head>
+</head>
+
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#" th:text="SIDOK"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            <a class="nav-item nav-link active" th:href="@{/}">Beranda <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" th:href="@{/poli}">Poli <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" th:href="@{/find}">Cari <span class="sr-only">(current)</span></a>
+            <!-- <a class="nav-item nav-link active" th:href="@{/cari-dokter-poli}">Cari Dokter Terbanyak<span class="sr-only">(current)</span></a> -->
+            <a class="nav-item nav-link active" th:href="@{/bonus}">Bonus <span class="sr-only">(current)</span></a>
+        </div>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <br>
+    <h2 align="center">Sistem Informasi Dokter</h2>
+    <br>
+
+    <div class="card text-center">
+        <div class="card-header bg-dark text-white" align="left">
+            Daftar Spesialisasi
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Spesialisasi</th>
+                        <th scope="col">Gelar</th>
+                        <th scope="col">Jumlah Dokter</th>
+                    </tr>
+                </thead>
+                <tbody th:each="spesialisasi, iterationStatus : ${listSpesialisasi}">
+                    <tr>
+                        <th scope="row" th:text="${iterationStatus.count}"></th>
+                        <td><a th:text="${spesialisasi.namaSpesialisasi}" ></a></td>
+      					<td th:text="${spesialisasi.gelar}"></td>
+      					<td th:text="${#lists.size(spesialisasi.listDokter)}" ></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

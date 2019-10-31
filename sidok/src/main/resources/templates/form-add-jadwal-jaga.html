@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav>
+    <br>
+    <h3 align="center"> Tambah Jadwal Jaga Poli Seorang Dokter</h3>
+    <br>
+
+    <form th:action="@{'/jadwal/tambah/' + ${dokter.nipDokter}}" th:object="${jadwalJaga}" method="POST">
+
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <label class="col-sm-2 col-form-label">Dokter</label>
+        <div class="col-sm-4">
+            <div class="col-sm-3"></div>
+            <input type="text" class="form-control" name="namaDokter"  th:value="${dokter.namaDokter}" readonly="true">            
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <label class="col-sm-2 col-form-label">poli</label>
+        <div class="col-sm-4">
+                <select class="form-control container1" id="sel1" th:field="*{poli}">
+                    <option value="">-- Silahkan Pilih Poli --</option>
+                    <option th:each="poli : ${listPoli}" th:text="${poli.namaPoli}" th:value="${poli.idPoli}"></option>
+                </select>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <label class="col-sm-2 col-form-label">Hari</label>
+        <div class="col-sm-4">
+            <select class="form-control" th:field="*{hari}">
+                <option value="">-- Silahkan Pilih Hari --</option>
+                <option value="senin">Senin</option>
+                <option value="selasa">Selasa</option>
+                <option value="rabu" >Rabu</option>
+                <option value="kamis">Kamis</option>
+                <option value="jumat">Jumat</option>
+                <option value="sabtu">Sabtu</option>
+                <option value="minggu">Minggu</option>
+            </select>
+        </div>
+        
+        <div class="col-sm-3"></div>
+    </div>
+    <br>
+    <div class="row">
+        <br>
+        <div class="col-md-8"></div>
+        <button class="btn btn-primary" type="submit"> Submit </button>
+    </div>
+    </form>
+    <br>
+
+    <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="card text-center">
+                <div class="card-header bg-dark text-white" align="left">
+                    Daftar Poli
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Hari</th>
+
+                            </tr>
+                        </thead>
+                        <tbody th:each="jadwalJaga, iterationStatus : ${listJadwalJaga}">
+                            <tr>
+                                <th scope="row" th:text="${iterationStatus.count}"></th>
+                                <td th:text="${jadwalJaga.dokter.namaDokter}"></td>
+                                <td th:text="${jadwalJaga.hari}"></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+
+</body>
+
+</html>
+<!-- 
+<p th:text="${newJadwalJaga}"></p>
+<p th:text="${dokter}"></p>
+<p th:text="${listPoli}"></p>
+<p th:text="${listJadwalJaga}"></p> -->
